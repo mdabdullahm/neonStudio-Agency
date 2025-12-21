@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
+import React from "react";
 
 // ২. Poppins (ইংরেজি) কনফিগারেশন
 const poppins = Poppins({
@@ -22,6 +23,7 @@ export const metadata = {
   title: "NeonStudio Agency",
   description: "Digital Solutions",
 };
+/** @param {{ children: React.ReactNode }} props */
 
 export default function RootLayout({ children }) {
   return (
