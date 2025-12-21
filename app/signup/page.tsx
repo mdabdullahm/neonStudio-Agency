@@ -1,0 +1,152 @@
+// app/signup/page.jsx
+"use client";
+
+import { useLanguage } from "../context/LanguageContext";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+
+export default function Signup() {
+  const { t } = useLanguage();
+  const [showPassword, setShowPassword] = useState(false);
+
+  if (!t) return null;
+
+  return (
+    <main className="min-h-screen w-full flex bg-black text-white pt-20">
+      
+      {/* === ১. বাম পাশ: ভিজ্যুয়াল সেকশন (শুধু ডেস্কটপে দেখাবে) === */}
+      <div className="hidden lg:flex w-1/2 relative overflow-hidden">
+        {/* ব্যাকগ্রাউন্ড ইমেজ (সাইন আপের জন্য আলাদা) */}
+        <Image 
+          src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop"
+          alt="Signup Background"
+          fill
+          className="object-cover"
+        />
+        
+        {/* কালার ওভারলে (পার্পল টোন) */}
+        <div className="absolute inset-0 bg-purple-900/40 mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+
+        {/* টেক্সট কন্টেন্ট */}
+        <div className="absolute bottom-20 left-20 z-10 max-w-md">
+          <h2 className="text-4xl font-bold mb-4">Start Your Journey With Us.</h2>
+          <p className="text-gray-300">Create an account and unlock endless possibilities with NeonStudio.</p>
+        </div>
+      </div>
+
+
+      {/* === ২. ডান পাশ: সাইন আপ ফর্ম === */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
+        
+        {/* ব্যাকগ্রাউন্ড গ্লো */}
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md space-y-8 relative z-10"
+        >
+          
+          {/* হেডার */}
+          <div className="text-center">
+            <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 mb-2">
+              {t.auth.signup_title}
+            </h1>
+            <p className="text-gray-400">{t.auth.signup_desc}</p>
+          </div>
+
+          {/* ফর্ম */}
+          <form className="space-y-5">
+            
+            {/* নাম */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300 ml-1">
+                {t.auth.full_name} {/* পরিবর্তন করা হয়েছে */}
+              </label>
+              <input 
+                type="text" 
+                placeholder="John Doe"
+                className="w-full bg-[#101010] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-gray-600"
+              />
+            </div>
+
+            {/* ইমেইল */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300 ml-1">{t.auth.email}</label>
+              <input 
+                type="email" 
+                placeholder="name@example.com"
+                className="w-full bg-[#101010] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-gray-600"
+              />
+            </div>
+
+            {/* পাসওয়ার্ড */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300 ml-1">{t.auth.password}</label>
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  placeholder="Create a password"
+                  className="w-full bg-[#101010] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all placeholder:text-gray-600 pr-12"
+                />
+                <button 
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                >
+                  {showPassword ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* বাটন */}
+            <button className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(147,51,234,0.5)] transition-all duration-300 transform hover:-translate-y-1 mt-4">
+              {t.auth.btn_signup}
+            </button>
+
+          </form>
+
+          {/* ডিভাইডার */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/10"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-black text-gray-500 uppercase tracking-wider">{t.auth.divider}</span>
+            </div>
+          </div>
+
+          {/* সোশ্যাল সাইন আপ */}
+          <div className="grid grid-cols-2 gap-4">
+            <button className="flex items-center justify-center gap-3 py-3 border border-white/10 rounded-xl hover:bg-white/5 transition-all text-sm font-semibold">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
+              Google
+            </button>
+            <button className="flex items-center justify-center gap-3 py-3 border border-white/10 rounded-xl hover:bg-white/5 transition-all text-sm font-semibold">
+              <img src="https://www.svgrepo.com/show/448224/github.svg" className="w-5 h-5 invert" alt="GitHub" />
+              GitHub
+            </button>
+          </div>
+
+          {/* লগইন লিংক */}
+          <p className="text-center text-gray-400 text-sm">
+            Already have an account?{" "}
+            <Link href="/login" className="text-purple-400 hover:text-white font-bold transition-colors">
+              {t.auth.btn_login}
+            </Link>
+          </p>
+
+        </motion.div>
+      </div>
+
+    </main>
+  );
+}
