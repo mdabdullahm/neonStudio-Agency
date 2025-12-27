@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "../../../context/LanguageContext";
 
+
 export default function ServiceDetail() {
   const { t } = useLanguage();
   
