@@ -1,8 +1,7 @@
 // app/home/Contact.jsx
 "use client";
-
-import { useLanguage } from "../context/LanguageContext";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Contact() {
   const { t } = useLanguage();
